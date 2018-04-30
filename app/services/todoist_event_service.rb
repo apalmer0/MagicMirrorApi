@@ -36,6 +36,7 @@ class TodoistEventService
       content: item_content,
       due: due_date,
       todoist_id: todoist_id,
+      user_id: user_id,
     )
   end
 
@@ -57,5 +58,9 @@ class TodoistEventService
 
   def completed
     @event_data["checked"]
+  end
+
+  def user_id
+    @event_data["user_id"]
   end
 end

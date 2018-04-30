@@ -26,6 +26,7 @@ describe "Items API" do
 
         expect(Item.count).to eq 1
         expect(Item.first.content).to eq "new todo item!"
+        expect(Item.first.user_id).to eq "1234567"
         expect(response).to have_http_status :ok
       end
     end
