@@ -26,8 +26,17 @@ gem 'puma', '~> 3.7'
 # gem 'rack-cors'
 
 group :development, :test do
+  gem 'axe-matchers'
+  gem 'bullet'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'capybara', '~> 2.13'
+  gem 'pry-rails'
+  gem 'rspec-its'
+  gem 'rspec-rails'
+  gem 'selenium-webdriver'
+  gem 'shoulda-matchers'
+  gem 'simplecov', require: false
 end
 
 group :development do
