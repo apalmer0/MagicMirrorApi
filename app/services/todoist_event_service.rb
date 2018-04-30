@@ -15,15 +15,16 @@ class TodoistEventService
   end
 
   def handle_event
-    if item_added?
+    case @event_name
+    when ITEM_ADDED
       create_item!
-    elsif item_deleted?
+    when ITEM_DELETED
       item&.delete
-    elsif item_updated?
+    when ITEM_UPDATED
       item&.update(content: item_content)
-    elsif item_completed?
+    when ITEM_COMPLETED
       item.complete!
-    elsif item_uncompleted?
+    when ITEM_UNCOMPLETED
       item.incomplete!
     end
   end
@@ -32,7 +33,6 @@ class TodoistEventService
 
   def create_item!
     Item.create(
-      status: "incomplete",
       content: item_content,
       due: due_date,
       todoist_id: todoist_id,
@@ -57,25 +57,5 @@ class TodoistEventService
 
   def completed
     @event_data["checked"]
-  end
-
-  def item_added?
-    @event_name == ITEM_ADDED
-  end
-
-  def item_deleted?
-    @event_name == ITEM_DELETED
-  end
-
-  def item_updated?
-    @event_name == ITEM_UPDATED
-  end
-
-  def item_completed?
-    @event_name == ITEM_COMPLETED
-  end
-
-  def item_uncompleted?
-    @event_name == ITEM_UNCOMPLETED
   end
 end

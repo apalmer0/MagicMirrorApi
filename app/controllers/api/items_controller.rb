@@ -1,9 +1,9 @@
 module Api
   class ItemsController < ApplicationController
     def create
-      TodoistEventService.handle_event(event_name, event_data)
-
-      head :ok
+      if TodoistEventService.handle_event(event_name, event_data)
+        head :ok
+      end
     end
 
     private
