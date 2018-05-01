@@ -1,8 +1,6 @@
 FactoryBot.define do
   factory :item do
-    TODAY = "today"
-    TOMORROW = "tomorrow"
-    YESTERDAY = "yesterday"
+    TODAY = DateTime.now.end_of_day.utc
     CONTENT_OPTIONS =
       [
         "walk the dog",
@@ -15,17 +13,13 @@ FactoryBot.define do
         "paint a masterpiece",
         "become a pirate",
         "ask elon musk what he eats for breakfast",
+        "reinvent the wheel",
+        "assemble popsicle stick bridge"
       ]
-
-    transient { due_day TODAY }
 
     sequence(:todoist_id) { |n| "%010d" % n }
     sequence(:user_id) { |n| "%07d" % n }
-    sequence(:content) { |n| CONTENT_OPTIONS[n] }
-
-    trait :today do
-      status :active
-    end
+    content CONTENT_OPTIONS.sample
 
     trait :incomplete do
       status :incomplete
@@ -35,15 +29,16 @@ FactoryBot.define do
       status :complete
     end
 
-    before(:create) do |item, evaluator|
-      case evaluator.due_day
-      when TODAY
-        item.due = DateTime.now
-      when TOMORROW
-        item.due = DateTime.now + 1.day
-      when YESTERDAY
-        item.due = DateTime.now - 1.day
-      end
+    trait :today do
+      due TODAY
+    end
+
+    trait :tomorrow do
+      due TODAY + 1.day
+    end
+
+    trait :yesterday do
+      due TODAY - 1.day
     end
   end
 end
