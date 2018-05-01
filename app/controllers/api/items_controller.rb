@@ -14,8 +14,8 @@ module Api
 
     def items_collection
       @items = Item.all
-      @items = @items.where(due: DateTime.now.end_of_day.utc) if params["due"] == "today"
-      @items = @items.where(user_id: params["user_id"]) if params["user_id"].present?
+      @items = @items.due_today if due_today?
+      @items = @items.for_user(params["user_id"]) if for_user?
       @items
     end
 
@@ -33,10 +33,6 @@ module Api
 
     def for_user?
       params["user_id"].present?
-    end
-
-    def user_items
-      Item.where(user_id: params["user_id"])
     end
   end
 end
