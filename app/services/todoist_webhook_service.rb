@@ -1,4 +1,4 @@
-class TodoistEventService
+class TodoistWebhookService
   ITEM_ADDED = "item:added"
   ITEM_DELETED = "item:deleted"
   ITEM_UPDATED = "item:updated"
