@@ -7,5 +7,6 @@ class Item < ApplicationRecord
 
   def set_defaults
     self.status ||= :incomplete
+    self.due ||= DateTime.now.end_of_day.utc
   end
 end
