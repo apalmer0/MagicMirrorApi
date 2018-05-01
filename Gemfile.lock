@@ -71,6 +71,10 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.3)
     docile (1.3.0)
+    dotenv (2.4.0)
+    dotenv-rails (2.4.0)
+      dotenv (= 2.4.0)
+      railties (>= 3.2, < 6.0)
     dumb_delegator (0.8.0)
     equalizer (0.0.11)
     erubi (1.7.1)
@@ -82,6 +86,8 @@ GEM
     ffi (1.9.23)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    httparty (0.16.2)
+      multi_xml (>= 0.5.2)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
@@ -99,6 +105,7 @@ GEM
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
+    multi_xml (0.6.0)
     nio4r (2.3.0)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
@@ -208,7 +215,9 @@ DEPENDENCIES
   bullet
   byebug
   capybara (~> 2.13)
+  dotenv-rails
   factory_bot_rails
+  httparty
   listen (>= 3.0.5, < 3.2)
   pry-rails
   puma (~> 3.7)
