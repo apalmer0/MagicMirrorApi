@@ -14,7 +14,7 @@ class TodoistSyncService
           content: item["content"],
           user_id: item["user_id"],
           todoist_id: item["id"],
-          due: item["due_date_utc"],
+          due: save_in_eastern(item),
           status: item["checked"],
         )
       end
@@ -33,5 +33,9 @@ class TodoistSyncService
         resource_types: "[\"#{RESOURCE_TYPE}\"]"
       }
     }
+  end
+
+  def save_in_eastern(item)
+    item["due_date_utc"].in_time_zone("Eastern Time (US & Canada)").to_date
   end
 end

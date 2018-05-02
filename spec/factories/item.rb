@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :item do
-    TODAY = DateTime.now.end_of_day.utc
+    TODAY = Date.today
     CONTENT_OPTIONS =
       [
         "walk the dog",

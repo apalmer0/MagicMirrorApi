@@ -3,7 +3,7 @@ class Item < ApplicationRecord
 
   enum status: { incomplete: 0, complete: 1 }
 
-  TODAY = DateTime.now.end_of_day.utc
+  TODAY = Date.today
 
   def self.due_today
     where(due: TODAY)
