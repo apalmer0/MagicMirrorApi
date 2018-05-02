@@ -9,8 +9,9 @@ gem 'rails', '~> 5.1.6'
 
 gem 'dotenv-rails'
 gem 'httparty'
-gem 'puma', '~> 3.7'
 gem 'pg'
+gem 'puma', '~> 3.7'
+gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
   gem 'axe-matchers'
