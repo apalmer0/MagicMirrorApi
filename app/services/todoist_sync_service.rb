@@ -10,7 +10,7 @@ class TodoistSyncService
     todoist_response = fetch_todoist_items
     if todoist_response["items"].present?
       todoist_response["items"].each do |item|
-        Item.create(
+        Item.where(todoist_id: item["id"]).first_or_create(
           content: item["content"],
           user_id: item["user_id"],
           todoist_id: item["id"],

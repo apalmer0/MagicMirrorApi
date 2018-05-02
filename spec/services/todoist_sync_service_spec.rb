@@ -31,5 +31,17 @@ describe TodoistSyncService do
         expect(item.status).to eq "incomplete"
       end
     end
+
+    it "does not duplicate items that already exist" do
+      expect(Item.count).to eq 0
+
+      TodoistSyncService.sync()
+
+      expect(Item.count).to eq 3
+
+      TodoistSyncService.sync()
+
+      expect(Item.count).to eq 3
+    end
   end
 end
