@@ -10,7 +10,7 @@ gem 'rails', '~> 5.1.6'
 gem 'dotenv-rails'
 gem 'httparty'
 gem 'puma', '~> 3.7'
-gem 'sqlite3'
+gem 'pg'
 
 group :development, :test do
   gem 'axe-matchers'
