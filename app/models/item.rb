@@ -6,15 +6,11 @@ class Item < ApplicationRecord
   TODAY = Date.today
 
   def self.due_today
-    where(due: TODAY)
+    where("due <= ?", TODAY)
   end
 
   def self.for_user(user_id)
     where(user_id: user_id)
-  end
-
-  def due_today?
-    due == TODAY
   end
 
   private

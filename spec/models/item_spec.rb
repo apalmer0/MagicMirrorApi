@@ -11,17 +11,18 @@ RSpec.describe Item, type: :model do
     it "is created with a due date of today" do
       item = Item.new()
 
-      expect(item).to be_due_today
+      expect(item.due).to eq Date.today
     end
   end
 
   describe "scopes" do
     describe ".due_today" do
-      it "returns all items that are due today" do
+      it "returns all items that are overdue & due today" do
         item_1 = create(:item, :today)
+        overdue_item = create(:item, :yesterday)
         create(:item, :tomorrow)
 
-        expect(Item.due_today).to match_array([ item_1 ])
+        expect(Item.due_today).to match_array([ item_1, overdue_item ])
       end
     end
 

@@ -50,18 +50,26 @@ describe "Items API", type: :request do
     context "when requesting today's items" do
       it "returns all items due today" do
         item_1 = create :item, :today
+        overdue_item = create :item, :yesterday
         create :item, :tomorrow
 
         get "/api/items?due=today"
         parsed_response = JSON.parse(response.body)
 
-        expect(parsed_response.length).to eq 1
+        expect(parsed_response.length).to eq 2
         parsed_response.first.tap do |elem|
           expect(elem["id"]).to eq(item_1.id)
           expect(elem["content"]).to eq(item_1.content)
           expect(elem["todoist_id"]).to eq(item_1.todoist_id)
           expect(elem["status"]).to eq(item_1.status)
           expect(elem["user_id"]).to eq(item_1.user_id)
+        end
+        parsed_response.last.tap do |elem|
+          expect(elem["id"]).to eq(overdue_item.id)
+          expect(elem["content"]).to eq(overdue_item.content)
+          expect(elem["todoist_id"]).to eq(overdue_item.todoist_id)
+          expect(elem["status"]).to eq(overdue_item.status)
+          expect(elem["user_id"]).to eq(overdue_item.user_id)
         end
       end
     end
