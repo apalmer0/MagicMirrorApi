@@ -23,7 +23,7 @@ module MagicMirrorApi
 
     config.middleware.use Rack::Cors do
       allow do
-        origins 'http://localhost:8080', 'http://morning-scrubland-12661.herokuapp.com/'
+        origins 'http://localhost:8080', 'https://morning-scrubland-12661.herokuapp.com'
         resource '*', headers: :any, methods: [:get]
       end
     end
