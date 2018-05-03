@@ -74,6 +74,25 @@ describe "Items API", type: :request do
       end
     end
 
+    context "when requesting completed items" do
+      it "returns all completed items" do
+        complete_item = create :item, :complete
+        create :item, :incomplete
+
+        get "/api/items?status=complete"
+        parsed_response = JSON.parse(response.body)
+
+        expect(parsed_response.length).to eq 1
+        parsed_response.first.tap do |elem|
+          expect(elem["id"]).to eq(complete_item.id)
+          expect(elem["content"]).to eq(complete_item.content)
+          expect(elem["todoist_id"]).to eq(complete_item.todoist_id)
+          expect(elem["status"]).to eq(complete_item.status)
+          expect(elem["user_id"]).to eq(complete_item.user_id)
+        end
+      end
+    end
+
     context "when requesting a given user's items for today" do
       it "returns all items due today for that user" do
         item_1 = create :item, :today, user_id: 'abc123'
