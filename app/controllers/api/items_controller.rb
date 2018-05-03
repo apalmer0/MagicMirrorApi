@@ -10,7 +10,7 @@ module Api
       @items = Item.all
       @items = @items.due_today if due_today?
       @items = @items.for_user(params["user_id"]) if for_user?
-      @items = @items.complete if completed?
+      @items = @items.incomplete if incomplete?
       @items
     end
 
@@ -22,8 +22,8 @@ module Api
       params["user_id"].present?
     end
 
-    def completed?
-      params["status"] == "complete"
+    def incomplete?
+      params["status"] == "incomplete"
     end
   end
 end

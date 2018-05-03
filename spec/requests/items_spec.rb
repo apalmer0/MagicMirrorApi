@@ -74,21 +74,21 @@ describe "Items API", type: :request do
       end
     end
 
-    context "when requesting completed items" do
-      it "returns all completed items" do
-        complete_item = create :item, :complete
-        create :item, :incomplete
+    context "when requesting incomplete items" do
+      it "returns all incomplete items" do
+        incomplete_item = create :item, :incomplete
+        create :item, :complete
 
-        get "/api/items?status=complete"
+        get "/api/items?status=incomplete"
         parsed_response = JSON.parse(response.body)
 
         expect(parsed_response.length).to eq 1
         parsed_response.first.tap do |elem|
-          expect(elem["id"]).to eq(complete_item.id)
-          expect(elem["content"]).to eq(complete_item.content)
-          expect(elem["todoist_id"]).to eq(complete_item.todoist_id)
-          expect(elem["status"]).to eq(complete_item.status)
-          expect(elem["user_id"]).to eq(complete_item.user_id)
+          expect(elem["id"]).to eq(incomplete_item.id)
+          expect(elem["content"]).to eq(incomplete_item.content)
+          expect(elem["todoist_id"]).to eq(incomplete_item.todoist_id)
+          expect(elem["status"]).to eq(incomplete_item.status)
+          expect(elem["user_id"]).to eq(incomplete_item.user_id)
         end
       end
     end
