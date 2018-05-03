@@ -8,8 +8,11 @@ describe "Todoist Webhook", type: :request do
     item_deleted_params = JSON.parse(
       File.read("spec/fixtures/todoist_events/item_deleted.rb")
     )
-    item_updated_params = JSON.parse(
-      File.read("spec/fixtures/todoist_events/item_updated.rb")
+    item_updated_content_params = JSON.parse(
+      File.read("spec/fixtures/todoist_events/item_updated-content.rb")
+    )
+    item_updated_date_params = JSON.parse(
+      File.read("spec/fixtures/todoist_events/item_updated-date.rb")
     )
     item_completed_params = JSON.parse(
       File.read("spec/fixtures/todoist_events/item_completed.rb")
@@ -25,8 +28,11 @@ describe "Todoist Webhook", type: :request do
         post "/todoist_webhook", params: item_added_params
 
         expect(Item.count).to eq 1
-        expect(Item.first.content).to eq "new todo item!"
-        expect(Item.first.user_id).to eq "1234567"
+        Item.first.tap do |item|
+          expect(item.content).to eq "new todo item!"
+          expect(item.user_id).to eq "1234567"
+          expect(item.due).to eq "Sun, 29 Apr 2018".to_date
+        end
         expect(response).to have_http_status :ok
       end
     end
@@ -54,16 +60,33 @@ describe "Todoist Webhook", type: :request do
     end
 
     context "when updating an item" do
-      it "finds and updates the correct item" do
-        item = Item.create!(
-          todoist_id: "1000000004",
-          content: "old"
-        )
+      context "when updating the content" do
+        it "finds and updates the correct item" do
+          item = Item.create!(
+            todoist_id: "1000000004",
+            content: "old"
+          )
 
-        post "/todoist_webhook", params: item_updated_params
+          post "/todoist_webhook", params: item_updated_content_params
 
-        expect(item.reload.content).to eq "updated content"
-        expect(response).to have_http_status :ok
+          expect(item.reload.content).to eq "updated content"
+          expect(response).to have_http_status :ok
+        end
+      end
+
+      context "when updating the date" do
+        it "finds and updates the correct item" do
+          item = Item.create!(
+            todoist_id: "1000000004",
+            due: "Sun, 28 Apr 2018".to_date,
+            content: "original content",
+          )
+
+          post "/todoist_webhook", params: item_updated_date_params
+
+          expect(item.reload.due).to eq "Tue, 01 May 2018".to_date
+          expect(response).to have_http_status :ok
+        end
       end
     end
 

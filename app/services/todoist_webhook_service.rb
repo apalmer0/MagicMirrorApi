@@ -21,7 +21,10 @@ class TodoistWebhookService
     when ITEM_DELETED
       item&.delete
     when ITEM_UPDATED
-      item&.update(content: item_content)
+      item&.update(
+        content: item_content,
+        due: due_date,
+      )
     when ITEM_COMPLETED
       item.complete!
     when ITEM_UNCOMPLETED
@@ -49,7 +52,7 @@ class TodoistWebhookService
   end
 
   def due_date
-    @event_data["due_date_utc"]
+    @event_data["due_date_utc"].in_time_zone("Eastern Time (US & Canada)").to_date
   end
 
   def item_content
