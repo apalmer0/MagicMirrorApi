@@ -1,6 +1,9 @@
 class Item < ApplicationRecord
   after_initialize :set_defaults
 
+  validates :todoist_id, presence: true, uniqueness: { case_sensitive: false }
+  validates :content, presence: true
+
   enum status: { incomplete: 0, complete: 1 }
 
   def self.due_today

@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
+  subject { build(:item) }
+
+  describe "validations" do
+    it { should validate_presence_of(:todoist_id) }
+    it { should validate_uniqueness_of(:todoist_id).case_insensitive }
+    it { should validate_presence_of(:content) }
+  end
+
   describe "set_defaults" do
     it "is created with pending status" do
       item = Item.new()
