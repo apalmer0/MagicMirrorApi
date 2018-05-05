@@ -3,10 +3,8 @@ class Item < ApplicationRecord
 
   enum status: { incomplete: 0, complete: 1 }
 
-  TODAY = Date.today
-
   def self.due_today
-    where("due <= ?", TODAY)
+    where("due <= ?", Date.today)
   end
 
   def self.for_user(user_id)
@@ -17,6 +15,6 @@ class Item < ApplicationRecord
 
   def set_defaults
     self.status ||= :incomplete
-    self.due ||= TODAY
+    self.due ||= Date.today
   end
 end
