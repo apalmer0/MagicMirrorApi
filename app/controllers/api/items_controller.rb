@@ -11,7 +11,7 @@ module Api
     private
 
     def item
-      @item ||= Item.where(content: item_content).incomplete.order(due: :asc).first
+      @item ||= Item.where('lower(content) = ?', item_content.downcase).incomplete.order(due: :asc).first
     end
 
     def items_collection

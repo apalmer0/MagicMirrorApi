@@ -119,13 +119,14 @@ describe "Items API", type: :request do
     before { allow(TodoistItemService).to receive(:complete) }
 
     context "when there's only one matching item" do
-      it "calls the TodoistItemService with the correct item" do
-        content = "a man, a plan, a canal: panama"
-        item_1 = create :item, content: content
+      it "calls the TodoistItemService with the correct item, regardless of case" do
+        uppercase_content = "TEST"
+        lowercase_content = "test"
+        item_1 = create :item, content: uppercase_content
         params =
           {
-            content: content,
-            item:  { content: content },
+            content: lowercase_content,
+            item:  { content: lowercase_content },
           }
 
         put "/api/items", params: params
