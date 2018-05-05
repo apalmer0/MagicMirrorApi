@@ -114,4 +114,44 @@ describe "Items API", type: :request do
       end
     end
   end
+
+  describe "PATCH /items" do
+    before { allow(TodoistItemService).to receive(:complete) }
+
+    context "when there's only one matching item" do
+      it "calls the TodoistItemService with the correct item" do
+        content = "a man, a plan, a canal: panama"
+        item_1 = create :item, content: content
+        params =
+          {
+            content: content,
+            item:  { content: content },
+          }
+
+        put "/api/items", params: params
+
+        expect(TodoistItemService).to have_received(:complete).with(item_1)
+      end
+    end
+
+    context "when there's more than one matching item" do
+      it "calls the TodoistItemService with the correct item" do
+        content = "a man, a plan, a canal: panama"
+        create :item, :incomplete, content: content, due: Date.today
+        create :item, :complete, content: content, due: Date.today + 1.day
+        create :item, :complete, content: content, due: Date.today - 1.day
+        item = create :item, :incomplete, content: content, due: Date.today - 1.day
+
+        params =
+          {
+            content: content,
+            item:  { content: content },
+          }
+
+        put "/api/items", params: params
+
+        expect(TodoistItemService).to have_received(:complete).with(item)
+      end
+    end
+  end
 end

@@ -4,5 +4,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :items, only: [:index]
+    put 'items', controller: 'items', action: :update
   end
 end

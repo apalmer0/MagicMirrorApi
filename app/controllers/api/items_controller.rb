@@ -4,7 +4,15 @@ module Api
       render json: items_collection, status: :ok
     end
 
+    def update
+      TodoistItemService.complete(item)
+    end
+
     private
+
+    def item
+      @item ||= Item.where(content: item_content).incomplete.order(due: :asc).first
+    end
 
     def items_collection
       @items = Item.all
@@ -24,6 +32,10 @@ module Api
 
     def incomplete?
       params["status"] == "incomplete"
+    end
+
+    def item_content
+      params["content"]
     end
   end
 end
