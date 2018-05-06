@@ -19,7 +19,7 @@ RSpec.describe Item, type: :model do
     it "is created with a due date of today" do
       item = Item.new()
 
-      expect(item.due).to eq Date.today
+      expect(item.due).to eq Date.current
     end
   end
 

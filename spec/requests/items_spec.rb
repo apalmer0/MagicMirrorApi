@@ -138,10 +138,10 @@ describe "Items API", type: :request do
     context "when there's more than one matching item" do
       it "calls the TodoistItemService with the correct item" do
         content = "a man, a plan, a canal: panama"
-        create :item, :incomplete, content: content, due: Date.today
-        create :item, :complete, content: content, due: Date.today + 1.day
-        create :item, :complete, content: content, due: Date.today - 1.day
-        item = create :item, :incomplete, content: content, due: Date.today - 1.day
+        create :item, :incomplete, content: content, due: Date.current
+        create :item, :complete, content: content, due: Date.current + 1.day
+        create :item, :complete, content: content, due: Date.current - 1.day
+        item = create :item, :incomplete, content: content, due: Date.current - 1.day
 
         params =
           {
