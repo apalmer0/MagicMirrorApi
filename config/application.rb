@@ -21,6 +21,8 @@ module MagicMirrorApi
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
+    config.time_zone = 'Eastern Time (US & Canada)'
+
     config.middleware.use Rack::Cors do
       allow do
         origins 'http://localhost:8080', 'https://morning-scrubland-12661.herokuapp.com'
