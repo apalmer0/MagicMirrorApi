@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :items, only: [:index]
+    resources :forecast_items, only: [:index]
     put 'items', controller: 'items', action: :update
   end
 end
