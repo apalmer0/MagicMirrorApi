@@ -39,29 +39,40 @@ describe DarkSkyService do
       end
     end
 
-    context "when half of the ForecastItems exist" do
-      it "creates a ForecastItem for each item returned in the 'hourly' response" do
-        hours = [1525615200, 1525626000, 1525636800, 1525647600,
-          1525658400, 1525669200, 1525680000, 1525690800]
-
-        hours.each do |hour|
-          create :forecast_item, precip_chance: 100, temperature: 0, unix_time: hour
+    context "when ForecastItems already exist" do
+      context "when there is an error" do
+        before do
+          allow(ForecastItem).to receive(:create!).and_raise(ActiveRecord::RecordInvalid)
         end
 
-        expect(ForecastItem.count).to eq 8
+        it "does not delete the existing record or save new ones" do
+          forecast_item = create :forecast_item
 
-        DarkSkyService.fetch_weather
+          DarkSkyService.fetch_weather
 
-        expect(ForecastItem.count).to eq 16
-        ForecastItem.first.tap do |item|
-          expect(item["precip_chance"]).to eq 15
-          expect(item["temperature"]).to eq 60
-          expect(item["unix_time"]).to eq "1525615200"
+          expect(ForecastItem.count).to eq 1
+          expect { forecast_item.reload }.not_to raise_exception
         end
-        ForecastItem.last.tap do |item|
-          expect(item["precip_chance"]).to eq 60
-          expect(item["temperature"]).to eq 30
-          expect(item["unix_time"]).to eq "1525777200"
+      end
+
+      context "when there is no error" do
+        it "deletes the existing items and creates new ones" do
+          forecast_item = create :forecast_item
+
+          DarkSkyService.fetch_weather
+
+          expect(ForecastItem.count).to eq 16
+          expect { forecast_item.reload }.to raise_exception ActiveRecord::RecordNotFound
+          ForecastItem.first.tap do |item|
+            expect(item["precip_chance"]).to eq 15
+            expect(item["temperature"]).to eq 60
+            expect(item["unix_time"]).to eq "1525615200"
+          end
+          ForecastItem.last.tap do |item|
+            expect(item["precip_chance"]).to eq 60
+            expect(item["temperature"]).to eq 30
+            expect(item["unix_time"]).to eq "1525777200"
+          end
         end
       end
     end

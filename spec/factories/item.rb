@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :item do
-    TODAY = Date.current
-    CONTENT_OPTIONS =
+    TODAY ||= Date.current
+    CONTENT_OPTIONS ||=
       [
         "walk the dog",
         "teach angela merkel how to solve a rubik's cube",
