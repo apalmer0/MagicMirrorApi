@@ -41,7 +41,7 @@ class DarkSkyService
   end
 
   def hourly_weather
-    all_hours = forecast.dig("hourly", "data")
+    all_hours = forecast["hourly"]["data"]
     all_hours.shift
     all_hours
   end
