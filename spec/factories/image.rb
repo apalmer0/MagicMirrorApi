@@ -3,5 +3,13 @@ FactoryBot.define do
     sequence(:url) { |n| "https://example.com/images/#{n}.jpg" }
     from_number "15555555555"
     caption "this is a picture"
+
+    trait :google do
+      image_source "google"
+    end
+
+    trait :twilio do
+      image_source "twilio"
+    end
   end
 end
