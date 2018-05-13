@@ -12,9 +12,10 @@ class TwilioImageService
   def create_image!
     if @url.present?
       Image.create!(
-        url: @url,
-        from_number: @from_number,
         caption: @body,
+        from_number: @from_number,
+        image_source: "twilio",
+        url: @url,
       )
     end
   end

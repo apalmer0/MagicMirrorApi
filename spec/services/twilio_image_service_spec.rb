@@ -17,9 +17,10 @@ describe TwilioImageService do
 
         expect(Image.count).to eq 1
         Image.first.tap do |image|
-          expect(image.url).to eq "https://example.com/image"
-          expect(image.from_number).to eq "+14444444444"
           expect(image.caption).to eq "this is an example image"
+          expect(image.from_number).to eq "+14444444444"
+          expect(image.image_source).to eq "twilio"
+          expect(image.url).to eq "https://example.com/image"
         end
       end
     end
