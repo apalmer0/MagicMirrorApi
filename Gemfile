@@ -12,6 +12,7 @@ gem 'httparty'
 gem 'pg'
 gem 'puma', '~> 3.7'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'timecop'
 
 group :development, :test do
   gem 'axe-matchers'

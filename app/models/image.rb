@@ -6,6 +6,8 @@ class Image < ApplicationRecord
 
   after_initialize :set_defaults
 
+  scope :queued, -> { where('created_at > ?', 30.seconds.ago).last(9) }
+
   private
 
   def set_defaults

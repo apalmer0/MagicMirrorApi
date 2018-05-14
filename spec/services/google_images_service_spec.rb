@@ -12,7 +12,7 @@ describe GoogleImagesService do
     it "hits the Google search api" do
       GoogleImagesService.fetch_images(search_term)
       expect(HTTParty).to have_received(:get).with(
-        "https://www.googleapis.com/customsearch/v1?key=#{ENV["GOOGLE_API_KEY"]}&cx=#{ENV["CUSTOM_SEARCH_ENGINE_ID"]}&q=#{search_term}&searchType=image&fileType=jpg&imgSize=xlarge&alt=json",
+        "https://www.googleapis.com/customsearch/v1?key=#{ENV["GOOGLE_API_KEY"]}&cx=#{ENV["CUSTOM_SEARCH_ENGINE_ID"]}&q=#{search_term}&searchType=image&num=9&fileType=jpg&imgSize=xlarge&alt=json",
       )
     end
 

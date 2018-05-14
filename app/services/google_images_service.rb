@@ -35,6 +35,7 @@ class GoogleImagesService
     "&cx=#{ENV["CUSTOM_SEARCH_ENGINE_ID"]}"\
     "&q=#{@search_term}"\
     "&searchType=image"\
+    "&num=9"\
     "&fileType=jpg"\
     "&imgSize=xlarge"\
     "&alt=json"

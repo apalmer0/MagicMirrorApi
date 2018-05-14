@@ -8,7 +8,7 @@ module Api
 
     def images_collection
       @images = Image.active
-      @images = @images.google if google_results?
+      @images = @images.google.queued if google_results?
       @images = @images.twilio if twilio_results?
       @images
     end
