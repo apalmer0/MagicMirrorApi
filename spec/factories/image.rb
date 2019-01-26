@@ -7,9 +7,5 @@ FactoryBot.define do
     trait :google do
       image_source "google"
     end
-
-    trait :twilio do
-      image_source "twilio"
-    end
   end
 end

@@ -32,7 +32,6 @@ describe "Items API", type: :request do
           create_list(:image, 10, :google)
           new_google_image = create :image, :google
           create :image, :google, created_at: DateTime.yesterday.beginning_of_day
-          create :image, :twilio
 
           get "/api/images?image_source=google"
           parsed_response = JSON.parse(response.body)
@@ -44,25 +43,6 @@ describe "Items API", type: :request do
             expect(elem["from_number"]).to eq(new_google_image.from_number)
             expect(elem["image_source"]).to eq(new_google_image.image_source)
           end
-        end
-      end
-    end
-
-    context "when requesting twilio images" do
-      it "returns all twilio images" do
-        twilio_image = create :image, :twilio
-        create :image, :google
-
-        get "/api/images?image_source=twilio"
-        parsed_response = JSON.parse(response.body)
-
-        expect(parsed_response.length).to eq 1
-        parsed_response.first.tap do |elem|
-          expect(elem["id"]).to eq(twilio_image.id)
-          expect(elem["url"]).to eq(twilio_image.url)
-          expect(elem["from_number"]).to eq(twilio_image.from_number)
-          expect(elem["caption"]).to eq(twilio_image.caption)
-          expect(elem["image_source"]).to eq(twilio_image.image_source)
         end
       end
     end
