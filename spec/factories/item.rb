@@ -19,26 +19,26 @@ FactoryBot.define do
 
     sequence(:todoist_id) { |n| "%010d" % n }
     sequence(:user_id) { |n| "%07d" % n }
-    content CONTENT_OPTIONS.sample
+    content { CONTENT_OPTIONS.sample }
 
     trait :incomplete do
-      status :incomplete
+      status { :incomplete }
     end
 
     trait :complete do
-      status :complete
+      status { :complete }
     end
 
     trait :today do
-      due TODAY
+      due { TODAY }
     end
 
     trait :tomorrow do
-      due TODAY + 1.day
+      due { TODAY + 1.day }
     end
 
     trait :yesterday do
-      due TODAY - 1.day
+      due { TODAY - 1.day }
     end
   end
 end
