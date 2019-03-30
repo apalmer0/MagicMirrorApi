@@ -26,12 +26,18 @@ class DarkSkyService
   def create_three_hour_block(items)
     total_chance = items.reduce(0) { |memo, obj| memo + (obj["precipProbability"] * 100) }
     total_temp = items.reduce(0) { |memo, obj| memo + (obj["temperature"]) }
+    avg_chance = total_chance / 3
+    rounded_chance = nearest_5(avg_chance)
 
     ForecastItem.create!(
-      precip_chance: (total_chance / 3),
+      precip_chance: rounded_chance,
       temperature: (total_temp / 3),
       unix_time: items[0]["time"],
     )
+  end
+
+  def nearest_5(temp)
+    ((temp / 5).round) * 5
   end
 
   def forecast
