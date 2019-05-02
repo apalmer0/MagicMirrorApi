@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :forecast_items, only: [:index]
     resources :images, only: [:index]
     resources :items, only: [:index]
+    resources :trivia_items, only: [:index]
     put 'items', controller: 'items', action: :update
   end
 end
