@@ -4,17 +4,20 @@ module Api
       render json: trivia_items_collection, status: :ok
     end
 
+    def update
+      TriviaResponseService.handle_response(answer)
+    end
+
     private
+
+    def answer
+      params["content"]
+    end
 
     def trivia_items_collection
       @trivia = TriviaItem.all
-      @trivia = @trivia.unanswered if unanswered?
       @trivia = @trivia.order("id desc").limit(params["limit"]) if limit?
       @trivia
-    end
-
-    def unanswered?
-      params["status"] == "unanswered"
     end
 
     def limit?

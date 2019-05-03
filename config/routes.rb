@@ -9,5 +9,6 @@ Rails.application.routes.draw do
     resources :items, only: [:index]
     resources :trivia_items, only: [:index]
     put 'items', controller: 'items', action: :update
+    put 'trivia_items', controller: 'trivia_items', action: :update
   end
 end
