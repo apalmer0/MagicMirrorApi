@@ -1,23 +1,28 @@
 class TriviaResponseService
-  def self.handle_response(answer)
-    new(answer).handle_response
+  def self.handle_response(guess)
+    new(guess).handle_response
   end
 
-  def initialize(answer)
-    @answer = answer
+  def initialize(guess)
+    @guess = guess
   end
 
   def handle_response
+    save_guess
     update_trivia_item
     get_new_trivia_item
   end
 
   private
 
-  attr_reader :answer
+  attr_reader :guess
+
+  def save_guess
+    current_trivia_item.update(guess: guess)
+  end
 
   def update_trivia_item
-    if correct_answer?
+    if correct_guess?
       current_trivia_item.correct!
     else
       current_trivia_item.incorrect!
@@ -28,8 +33,8 @@ class TriviaResponseService
     FetchTriviaService.run
   end
 
-  def correct_answer?
-    current_trivia_item.answer.downcase == answer.downcase
+  def correct_guess?
+    current_trivia_item.answer.downcase == guess.downcase
   end
 
   def current_trivia_item
