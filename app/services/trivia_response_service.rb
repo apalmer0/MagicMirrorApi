@@ -18,7 +18,7 @@ class TriviaResponseService
   attr_reader :guess
 
   def save_guess
-    current_trivia_item.update(guess: guess)
+    current_trivia_item.update!(guess: guess)
   end
 
   def update_trivia_item
@@ -34,7 +34,7 @@ class TriviaResponseService
   end
 
   def correct_guess?
-    current_trivia_item.answer.downcase == guess.downcase
+    current_trivia_item.correct_answer.downcase == guess.downcase
   end
 
   def current_trivia_item

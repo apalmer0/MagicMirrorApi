@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190503025938) do
+ActiveRecord::Schema.define(version: 20190506135824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,14 +46,15 @@ ActiveRecord::Schema.define(version: 20190503025938) do
 
   create_table "trivia_items", force: :cascade do |t|
     t.string "question", null: false
-    t.string "answer", null: false
-    t.string "response"
+    t.string "correct_answer", null: false
     t.integer "status"
     t.string "category", null: false
-    t.integer "value", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "guess"
+    t.string "incorrect_answers", array: true
+    t.string "difficulty", null: false
+    t.string "question_type", null: false
   end
 
 end

@@ -3,44 +3,51 @@ require "rails_helper"
 describe FetchTriviaService do
   describe ".run" do
     let(:response) do
-      [
-        {
-          "id" => 9146,
-          "answer" => "yellow",
-          "question" => "Since this was the color of Elizabeth's gown, guests were asked not to wear it",
-          "value" => 100,
-          "airdate" => "1992-05-20T12:00:00.000Z",
-          "created_at" => "2014-02-11T22:52:00.943Z",
-          "updated_at" => "2014-02-11T22:52:00.943Z",
-          "category_id" => 1091,
-          "game_id" => nil,
-          "invalid_count" => nil,
-          "category" => {
-            "id" => 1091,
-            "title" => "elizabeth taylor's wedding",
-            "created_at" => "2014-02-11T22:52:00.873Z",
-            "updated_at" => "2014-02-11T22:52:00.873Z",
-            "clues_count" => 5
+      {
+        "response_code" => 0,
+        "results" => [
+          {
+            "category" => "Entertainment: Video Games",
+            "type" => "boolean",
+            "difficulty" => "hard",
+            "question" => "In &quot;Portal 2&quot;, Cave Johnson started out Aperture Science as a shower curtain company.",
+            "correct_answer" => "True",
+            "incorrect_answers" => [
+              "False"
+            ]
           }
-        }
-      ]
+        ]
+      }
     end
     before(:each) do
       allow(HTTParty).to receive(:get).and_return(response)
     end
 
-    it "makes a get request to jService" do
+    it "makes a get request to Open Trivia DB" do
       FetchTriviaService.run
 
-      expect(HTTParty).to have_received(:get).with("http://jservice.io/api/random")
+      expect(HTTParty).to have_received(:get).with("https://opentdb.com/api.php?amount=1")
     end
 
     it "creates a TriviaItem for each item returned" do
-      expect(TriviaItem.count).to eq 0
+      expect { FetchTriviaService.run }
+        .to change { TriviaItem.count }
+        .from(0).to(1)
+    end
 
+    it "saves the correct attributes on the TriviaItem for each item returned" do
       FetchTriviaService.run
 
-      expect(TriviaItem.count).to eq 1
+      expect(TriviaItem.last).to have_attributes(
+        category: "Entertainment: Video Games",
+        correct_answer: "True",
+        difficulty: "hard",
+        guess: nil,
+        incorrect_answers: ["False"],
+        question: "In \"Portal 2\", Cave Johnson started out Aperture Science as a shower curtain company.",
+        question_type: "boolean",
+        status: "unanswered",
+      )
     end
   end
 end

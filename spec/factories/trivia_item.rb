@@ -1,9 +1,11 @@
 FactoryBot.define do
   factory :trivia_item do
     question { "question" }
-    answer { "answer" }
+    correct_answer { "answer" }
+    incorrect_answers { ["wrong answer", "another wrong answer"] }
     category { "foo" }
-    value { 1000 }
+    difficulty { "hard" }
+    question_type { "multiple" }
 
     trait :unanswered do
       status { :unanswered }
