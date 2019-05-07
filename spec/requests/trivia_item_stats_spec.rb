@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe "Trivia Item Stats API", type: :request do
   describe "GET /stats" do
     before do
-      create(:trivia_item, :correct, created_at: Date.today)
-      create(:trivia_item, :incorrect, created_at: Date.today - 7.days)
+      create(:trivia_item, :correct, updated_at: Date.today)
+      create(:trivia_item, :incorrect, updated_at: Date.today - 7.days)
     end
 
     it "returns a hash of stats" do
@@ -12,13 +12,8 @@ RSpec.describe "Trivia Item Stats API", type: :request do
       parsed_response = JSON.parse(response.body)
 
       expect(parsed_response).to eq(
-        "today" => {
-          "correct" => 1,
-        },
-        "all_time" => {
-          "correct" => 1,
-          "incorrect" => 1,
-        },
+        "today" => 1,
+        "all_time" => 0.5,
       )
     end
   end

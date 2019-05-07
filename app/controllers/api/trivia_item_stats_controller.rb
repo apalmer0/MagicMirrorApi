@@ -8,17 +8,39 @@ module Api
 
     def stats
       {
-        today: today,
-        all_time: all_time,
+        today: percent_today,
+        all_time: percent_all_time,
       }
     end
 
-    def today
-      TriviaItem.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).group(:status).count
+    def percent_today
+      correct_today.count.to_f / (correct_today.count + incorrect_today.count).to_f
     end
 
-    def all_time
-      TriviaItem.group(:status).count
+    def percent_all_time
+      correct.count.to_f / (correct.count + incorrect.count).to_f
+    end
+
+    def correct
+      TriviaItem.correct
+    end
+
+    def incorrect
+      TriviaItem.incorrect
+    end
+
+    def correct_today
+      correct.where(answered_today)
+    end
+
+    def incorrect_today
+      incorrect.where(answered_today)
+    end
+
+    def answered_today
+      {
+        updated_at: DateTime.current.beginning_of_day..DateTime.current.end_of_day
+      }
     end
   end
 end

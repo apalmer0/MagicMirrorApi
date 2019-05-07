@@ -82,6 +82,12 @@ class FetchTriviaService
   end
 
   def parse_string(string)
-    string.gsub(/&quot;/,'"').gsub(/&#039;/,"'").gsub(/&eacute;/,"é").gsub(/&amp;/, "&").gsub(/&Eacute;/, "É")
+    string
+      .gsub(/&quot;/,'"')
+      .gsub(/&#039;/,"'")
+      .gsub(/&eacute;/,"é")
+      .gsub(/&amp;/, "&")
+      .gsub(/&Eacute;/, "É")
+      .gsub(/&iacute;/, "í")
   end
 end
