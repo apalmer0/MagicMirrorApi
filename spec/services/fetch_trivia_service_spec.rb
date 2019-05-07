@@ -24,9 +24,9 @@ describe FetchTriviaService do
     end
 
     it "makes a get request to Open Trivia DB" do
-      FetchTriviaService.run
+      FetchTriviaService.run(category_id: 2)
 
-      expect(HTTParty).to have_received(:get).with("https://opentdb.com/api.php?amount=1")
+      expect(HTTParty).to have_received(:get).with("https://opentdb.com/api.php?amount=1&category=2")
     end
 
     it "creates a TriviaItem for each item returned" do

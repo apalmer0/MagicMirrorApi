@@ -1,9 +1,55 @@
 class FetchTriviaService
+  GENERAL_KNOWLEDGE = "9".freeze
+  BOOKS = "10".freeze
+  FILM = "11".freeze
+  MUSIC = "12".freeze
+  MUSICALS_AND_THEATRE = "13".freeze
+  TV = "14".freeze
+  VIDEO_GAMES = "15".freeze
+  BOARD_GAMES = "16".freeze
+  SCIENCE_AND_NATURE = "17".freeze
+  COMPUTERS = "18".freeze
+  MATH = "19".freeze
+  MYTHOLOGY = "20".freeze
+  SPORTS = "21".freeze
+  GEOGRAPHY = "22".freeze
+  HISTORY = "23".freeze
+  POLITICS = "24".freeze
+  ART = "25".freeze
+  CELEBRITIES = "26".freeze
+  ANIMALS = "27".freeze
+  VEHICLES = "28".freeze
+  COMICS = "29".freeze
+  GADGETS = "30".freeze
+  ANIME_AND_MANGA = "31".freeze
+  CARTOON_AND_ANIMATIONS = "32".freeze
+  CATEGORIES = [
+    GENERAL_KNOWLEDGE,
+    BOOKS,
+    FILM,
+    MUSIC,
+    TV,
+    SCIENCE_AND_NATURE,
+    COMPUTERS,
+    MATH,
+    MYTHOLOGY,
+    SPORTS,
+    GEOGRAPHY,
+    HISTORY,
+    POLITICS,
+    ART,
+    ANIMALS,
+    VEHICLES,
+    GADGETS,
+  ].freeze
   NUMBER_OF_QUESTIONS = "1".freeze
-  TRIVIA_URL = "https://opentdb.com/api.php?amount=#{NUMBER_OF_QUESTIONS}".freeze
 
-  def self.run
-    new().run
+  def self.run(category_id: CATEGORIES.sample)
+    new(category_id).run
+  end
+
+  def initialize(category_id)
+    @category_id = category_id
   end
 
   def run
@@ -13,8 +59,14 @@ class FetchTriviaService
 
   private
 
+  attr_reader :category_id
+
+  def trivia_url
+    "https://opentdb.com/api.php?amount=#{NUMBER_OF_QUESTIONS}&category=#{category_id}"
+  end
+
   def get_random_questions
-    HTTParty.get(TRIVIA_URL)
+    HTTParty.get(trivia_url)
   end
 
   def save_trivia_item(result)

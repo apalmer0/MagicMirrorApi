@@ -12,14 +12,12 @@ describe "TriviaItems API", type: :request do
 
         expect(parsed_response.length).to eq 2
         parsed_response.first.tap do |elem|
-          expect(elem["id"]).to eq(trivia_item_1.id)
           expect(elem["question"]).to eq(trivia_item_1.question)
           expect(elem["correct_answer"]).to eq(trivia_item_1.correct_answer)
           expect(elem["category"]).to eq(trivia_item_1.category)
           expect(elem["status"]).to eq(trivia_item_1.status)
         end
         parsed_response.last.tap do |elem|
-          expect(elem["id"]).to eq(trivia_item_2.id)
           expect(elem["question"]).to eq(trivia_item_2.question)
           expect(elem["correct_answer"]).to eq(trivia_item_2.correct_answer)
           expect(elem["category"]).to eq(trivia_item_2.category)
@@ -38,7 +36,6 @@ describe "TriviaItems API", type: :request do
 
         expect(parsed_response.length).to eq 1
         parsed_response.first.tap do |elem|
-          expect(elem["id"]).to eq(trivia_item_2.id)
           expect(elem["question"]).to eq(trivia_item_2.question)
           expect(elem["correct_answer"]).to eq(trivia_item_2.correct_answer)
           expect(elem["category"]).to eq(trivia_item_2.category)
