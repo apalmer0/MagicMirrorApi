@@ -1,4 +1,13 @@
 class TriviaItem < ApplicationRecord
+  include ActiveModel::Serialization
+
+  A = "A".freeze
+  B = "B".freeze
+  C = "C".freeze
+  D = "D".freeze
+  CHOICES = [A, B, C, D].freeze
+  MULTIPLE = "multiple".freeze
+
   after_initialize :set_defaults
 
   validates :category, presence: true
@@ -10,9 +19,34 @@ class TriviaItem < ApplicationRecord
 
   enum status: { unanswered: 0, incorrect: 1, correct: 2 }
 
+  def letters_and_answers
+    return {} unless multiple_choice?
+
+    answers_hash = {}
+    answers_hash[correct_letter] = correct_answer
+    remaining_choices = CHOICES - [correct_letter]
+
+    remaining_choices.each_with_index do |letter, index|
+      answers_hash[letter] = incorrect_answers[index]
+    end
+
+    answers_hash.sort_by { |key| key }.to_h
+  end
+
+  def multiple_choice?
+    question_type == MULTIPLE
+  end
+
+  def correct_response
+    multiple_choice? ? correct_letter : correct_answer
+  end
+
   private
 
   def set_defaults
     self.status ||= :unanswered
+    if question_type == MULTIPLE
+      self.correct_letter ||= CHOICES.sample
+    end
   end
 end

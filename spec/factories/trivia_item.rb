@@ -2,7 +2,9 @@ FactoryBot.define do
   factory :trivia_item do
     question { "question" }
     correct_answer { "answer" }
-    incorrect_answers { ["wrong answer", "another wrong answer"] }
+    incorrect_answers do
+      ["wrong answer", "another wrong answer", "third wrong answer"]
+    end
     category { "foo" }
     difficulty { "hard" }
     question_type { "multiple" }

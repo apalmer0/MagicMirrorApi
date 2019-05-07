@@ -7,6 +7,7 @@ end
 
 gem 'rails', '~> 5.1.6'
 
+gem 'active_model_serializers'
 gem 'dotenv-rails'
 gem 'httparty'
 gem 'pg'

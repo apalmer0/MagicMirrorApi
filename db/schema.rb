@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190506135824) do
+ActiveRecord::Schema.define(version: 20190506221529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20190506135824) do
     t.string "incorrect_answers", array: true
     t.string "difficulty", null: false
     t.string "question_type", null: false
+    t.string "correct_letter"
   end
 
 end

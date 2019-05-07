@@ -1,7 +1,7 @@
 module Api
   class TriviaItemsController < ApplicationController
     def index
-      render json: trivia_items_collection, status: :ok
+      render json: trivia_items_collection, status: :ok, each_serializer: TriviaItemsSerializer
     end
 
     def update
