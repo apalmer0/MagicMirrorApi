@@ -41,12 +41,18 @@ class TriviaItem < ApplicationRecord
     multiple_choice? ? correct_letter : correct_answer
   end
 
+  def assigned_correct_letter
+    if question_type == MULTIPLE
+      CHOICES.sample
+    else
+      nil
+    end
+  end
+
   private
 
   def set_defaults
     self.status ||= :unanswered
-    if question_type == MULTIPLE
-      self.correct_letter ||= CHOICES.sample
-    end
+    self.correct_letter ||= assigned_correct_letter
   end
 end
