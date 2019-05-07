@@ -19,8 +19,8 @@ class FetchTriviaService
 
   def save_trivia_item(result)
     trivia_item = TriviaItem.new(
-      category: result["category"],
-      correct_answer: result["correct_answer"],
+      category: parse_string(result["category"]),
+      correct_answer: parse_string(result["correct_answer"]),
       difficulty: result["difficulty"],
       question_type: result["type"],
       question: parse_string(result["question"]),
