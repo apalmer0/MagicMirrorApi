@@ -34,7 +34,7 @@ class TriviaResponseService
   end
 
   def correct_guess?
-    guess.downcase == current_trivia_item.correct_response.downcase
+    modified_guess.downcase == current_trivia_item.correct_response.downcase
   end
 
   def modified_guess
