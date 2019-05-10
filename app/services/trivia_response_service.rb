@@ -38,11 +38,20 @@ class TriviaResponseService
   end
 
   def modified_guess
-    if guess == "be"
+    if sounds_like_b?
       "b"
     else
       guess
     end
+  end
+
+  def sounds_like_b?
+    [
+      "be",
+      "beat",
+      "bee",
+      "beet",
+    ].include?(guess)
   end
 
   def current_trivia_item
