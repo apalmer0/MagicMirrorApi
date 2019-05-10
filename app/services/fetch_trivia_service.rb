@@ -89,5 +89,6 @@ class FetchTriviaService
       .gsub(/&amp;/, "&")
       .gsub(/&Eacute;/, "É")
       .gsub(/&iacute;/, "í")
+      .gsub(/&ocirc;/, "ô")
   end
 end
