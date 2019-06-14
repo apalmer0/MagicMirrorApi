@@ -8,9 +8,14 @@ class TriviaItemsSerializer < ActiveModel::Serializer
              :options,
              :question_type,
              :question,
-             :status
+             :status,
+             :streak_count
 
   def options
     object.letters_and_answers
+  end
+
+  def streak_count
+    object.streak_count
   end
 end

@@ -49,7 +49,27 @@ class TriviaItem < ApplicationRecord
     end
   end
 
+  def streak_count
+    if last_item.incorrect?
+      TriviaItem.where("id > ?", last_correct.id).where.not(id: id).count
+    else
+      TriviaItem.where("id > ?", last_incorrect.id).where.not(id: id).count
+    end
+  end
+
   private
+
+  def last_item
+    @last_item ||= TriviaItem.where("id < ?", id).order(:id).last
+  end
+
+  def last_correct
+    @last_correct ||= TriviaItem.correct.order(:id).last
+  end
+
+  def last_incorrect
+    @last_incorrect ||= TriviaItem.incorrect.order(:id).last
+  end
 
   def set_defaults
     self.status ||= :unanswered
