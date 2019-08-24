@@ -51,13 +51,17 @@ class TriviaItem < ApplicationRecord
 
   def streak_count
     if last_item&.incorrect?
-      TriviaItem.where("id > ?", last_correct&.id).where.not(id: id).count
+      trivia_items_since(last_correct)
     else
-      TriviaItem.where("id > ?", last_incorrect&.id).where.not(id: id).count
+      trivia_items_since(last_incorrect)
     end
   end
 
   private
+
+  def trivia_items_since(last_item)
+    TriviaItem.order(:id).where("id > ?", last_item&.id).where.not(id: id).count
+  end
 
   def last_item
     @last_item ||= TriviaItem.where("id < ?", id).order(:id).last
