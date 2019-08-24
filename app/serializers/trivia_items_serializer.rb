@@ -5,6 +5,7 @@ class TriviaItemsSerializer < ActiveModel::Serializer
              :difficulty,
              :guess,
              :incorrect_answers,
+             :max_streak,
              :options,
              :question_type,
              :question,
@@ -17,5 +18,9 @@ class TriviaItemsSerializer < ActiveModel::Serializer
 
   def streak_count
     object.streak_count
+  end
+
+  def max_streak
+    object.max_streak
   end
 end

@@ -57,6 +57,27 @@ class TriviaItem < ApplicationRecord
     end
   end
 
+  def max_streak
+    ids = TriviaItem.order(:id).correct.pluck(:id)
+    streak_start = []
+    streak_end = []
+
+    ids.each_with_index do |id, index|
+      if ids[index + 1] == id + 1 && ids[index - 1] != id - 1
+        streak_start << id
+      end
+
+      if ids[index + 1] != id + 1 && ids[index - 1] == id - 1
+        streak_end << id
+      end
+    end
+
+    streaks = streak_start.zip(streak_end)
+    streak_lengths = streaks.map { |streak| (streak[1] - streak[0]) + 1 }
+
+    streak_lengths.max
+  end
+
   private
 
   def trivia_items_since(last_item)

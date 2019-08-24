@@ -51,6 +51,19 @@ RSpec.describe TriviaItem, type: :model do
     end
   end
 
+  describe ".max_streak" do
+    before do
+      create_list(:trivia_item, 4, status: :correct)
+      create(:trivia_item, status: :incorrect)
+      create_list(:trivia_item, 3, status: :correct)
+      create(:trivia_item, status: :incorrect)
+    end
+
+    it "returns the longest streak of correct answers" do
+      expect(TriviaItem.last.max_streak).to eq(4)
+    end
+  end
+
   describe "set_defaults" do
     it "is created as 'unanswered'" do
       item = TriviaItem.new
