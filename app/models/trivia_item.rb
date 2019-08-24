@@ -50,10 +50,10 @@ class TriviaItem < ApplicationRecord
   end
 
   def streak_count
-    if last_item.incorrect?
-      TriviaItem.where("id > ?", last_correct.id).where.not(id: id).count
+    if last_item&.incorrect?
+      TriviaItem.where("id > ?", last_correct&.id).where.not(id: id).count
     else
-      TriviaItem.where("id > ?", last_incorrect.id).where.not(id: id).count
+      TriviaItem.where("id > ?", last_incorrect&.id).where.not(id: id).count
     end
   end
 
