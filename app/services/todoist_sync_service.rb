@@ -36,6 +36,6 @@ class TodoistSyncService
   end
 
   def save_in_eastern(item)
-    item["due_date_utc"].in_time_zone("Eastern Time (US & Canada)").to_date
+    item.dig("due", "date").to_datetime
   end
 end

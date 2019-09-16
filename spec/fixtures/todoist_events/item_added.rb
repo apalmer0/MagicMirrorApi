@@ -26,7 +26,13 @@
     "date_added": "Sun 29 Apr 2018 23:08:55 +0000",
     "user_id": 1234567,
     "url": "https://todoist.com/showTask?id=1000000001",
-    "due_date_utc": "Mon 30 Apr 2018 03:59:59 +0000",
+    "due": {
+      "date": "2018-04-29",
+      "timezone": null,
+      "is_recurring": false,
+      "string": "Apr 29",
+      "lang": "en"
+    },
     "priority": 1,
     "parent_id": null,
     "item_order": 1,
@@ -63,7 +69,13 @@
       "date_added": "Sun 29 Apr 2018 23:08:55 +0000",
       "user_id": 1234567,
       "url": "https://todoist.com/showTask?id=1000000001",
-      "due_date_utc": "Mon 30 Apr 2018 03:59:59 +0000",
+      "due": {
+        "date": "2018-04-30",
+        "timezone": null,
+        "is_recurring": false,
+        "string": "Apr 30",
+        "lang": "en"
+      },
       "priority": 1,
       "parent_id": null,
       "item_order": 1,

@@ -15,7 +15,7 @@ class TodoistWebhookService
   end
 
   def handle_event
-    case @event_name
+    case event_name
     when ITEM_ADDED
       create_item!
     when ITEM_DELETED
@@ -34,6 +34,8 @@ class TodoistWebhookService
 
   private
 
+  attr_reader :event_data, :event_name
+
   def create_item!
     Item.create(
       content: item_content,
@@ -48,22 +50,22 @@ class TodoistWebhookService
   end
 
   def todoist_id
-    @event_data["id"].to_s
+    event_data["id"].to_s
   end
 
   def due_date
-    @event_data["due_date_utc"].in_time_zone("Eastern Time (US & Canada)").to_date
+    event_data.dig("due", "date").to_datetime
   end
 
   def item_content
-    @event_data["content"]
+    event_data["content"]
   end
 
   def completed
-    @event_data["checked"]
+    event_data["checked"]
   end
 
   def user_id
-    @event_data["user_id"]
+    event_data["user_id"]
   end
 end

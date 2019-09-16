@@ -19,7 +19,13 @@
          "priority": 1,
          "checked": 0,
          "user_id": 1234567,
-         "due_date_utc": "Sun 06 May 2018 03: 59: 59 +0000",
+         "due": {
+           "date": "2018-05-06",
+           "timezone": null,
+           "is_recurring": false,
+           "string": "May 06",
+           "lang": "en"
+         },
          "content": "Organize",
          "parent_id": null,
          "item_order": 5,
@@ -45,7 +51,13 @@
          "priority": 1,
          "checked": 0,
          "user_id": 1234567,
-         "due_date_utc": "Mon 07 May 2018 03: 59: 59 +0000",
+         "due": {
+           "date": "2018-05-07",
+           "timezone": null,
+           "is_recurring": false,
+           "string": "May 07",
+           "lang": "en"
+         },
          "content": "Clean kitchen",
          "parent_id": null,
          "item_order": 6,
@@ -71,7 +83,13 @@
          "priority": 1,
          "checked": 0,
          "user_id": 1234567,
-         "due_date_utc": "Sat 05 May 2018 03: 59: 59 +0000",
+         "due": {
+           "date": "2018-05-05",
+           "timezone": null,
+           "is_recurring": false,
+           "string": "May 05",
+           "lang": "en"
+         },
          "content": "Email quads",
          "parent_id": null,
          "item_order": 68,

@@ -25,7 +25,13 @@
     "is_deleted": 0,
     "user_id": 1234567,
     "url": "https://todoist.com/showTask?id=1000000002",
-    "due_date_utc": "Mon 30 Apr 2018 03:59:59 +0000",
+    "due": {
+      "date": "2018-04-29",
+      "timezone": null,
+      "is_recurring": false,
+      "string": "Apr 29",
+      "lang": "en"
+    },
     "content": "Test!",
     "parent_id": null,
     "item_order": 1,
