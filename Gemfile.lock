@@ -57,6 +57,14 @@ GEM
     bullet (5.9.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
+    bummr (0.5.0)
+      rainbow
+      thor
+    bundle-audit (0.1.0)
+      bundler-audit
+    bundler-audit (0.6.1)
+      bundler (>= 1.2.0, < 3)
+      thor (~> 0.18)
     byebug (11.0.0)
     capybara (2.18.0)
       addressable
@@ -73,7 +81,7 @@ GEM
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.1.5)
-    crass (1.0.4)
+    crass (1.0.5)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.3)
@@ -105,7 +113,7 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
-    loofah (2.2.3)
+    loofah (2.4.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -119,7 +127,7 @@ GEM
     minitest (5.11.3)
     multi_xml (0.6.0)
     nio4r (2.3.1)
-    nokogiri (1.10.4)
+    nokogiri (1.10.5)
       mini_portile2 (~> 2.4.0)
     pg (1.1.4)
     pry (0.12.2)
@@ -130,7 +138,8 @@ GEM
     public_suffix (3.0.2)
     puma (3.12.0)
     rack (2.0.7)
-    rack-cors (1.0.2)
+    rack-cors (1.1.0)
+      rack (>= 2.0.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.1.7)
@@ -156,6 +165,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
+    rainbow (3.0.0)
     rake (12.3.2)
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
@@ -181,7 +191,7 @@ GEM
       rspec-support (~> 3.8.0)
     rspec-support (3.8.0)
     ruby_dep (1.5.0)
-    rubyzip (1.2.2)
+    rubyzip (1.3.0)
     selenium-webdriver (3.141.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2, >= 1.2.2)
@@ -228,6 +238,8 @@ DEPENDENCIES
   active_model_serializers
   axe-matchers
   bullet
+  bummr
+  bundle-audit
   byebug
   capybara (~> 2.13)
   dotenv-rails

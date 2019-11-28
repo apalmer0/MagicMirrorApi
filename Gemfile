@@ -8,11 +8,13 @@ end
 gem 'rails', '~> 5.1.6'
 
 gem 'active_model_serializers'
+gem 'bundle-audit'
 gem 'dotenv-rails'
 gem 'httparty'
 gem 'pg'
 gem 'puma', '~> 3.7'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'bummr'
 gem 'timecop'
 
 group :development, :test do
