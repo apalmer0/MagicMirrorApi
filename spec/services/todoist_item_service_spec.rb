@@ -14,11 +14,11 @@ describe TodoistItemService do
       TodoistItemService.complete(item)
 
       expect(HTTParty).to have_received(:post).with(
-        "https://todoist.com/api/v7/sync",
+        TodoistItemService::TODOIST_URL,
         {
           body: {
             token: ENV["TODOIST_KEY"],
-            commands: "[{ \"type\": \"item_complete\", \"uuid\": \"#{fake_uuid}\", \"args\": { \"ids\": [ #{item.todoist_id.to_i} ] } }]"
+            commands: "[{\"args\":{\"id\":#{item.todoist_id.to_i}},\"type\":\"item_complete\",\"uuid\":\"#{fake_uuid}\"}]"
           }
         }
       )

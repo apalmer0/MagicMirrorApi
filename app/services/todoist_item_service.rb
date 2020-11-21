@@ -1,5 +1,5 @@
 class TodoistItemService
-  TODOIST_URL = "https://todoist.com/api/v7/sync"
+  TODOIST_URL = "https://api.todoist.com/sync/v8/sync"
   ITEM_COMPLETE = "item_complete"
 
   def initialize(item)
@@ -27,7 +27,11 @@ class TodoistItemService
     {
       body: {
         token: ENV["TODOIST_KEY"],
-        commands: "[{ \"type\": \"#{ITEM_COMPLETE}\", \"uuid\": \"#{uuid}\", \"args\": { \"ids\": [ #{@item.todoist_id.to_i} ] } }]"
+        commands: [{
+          args: { id: @item.todoist_id.to_i },
+          type: TodoistItemService::ITEM_COMPLETE,
+          uuid: uuid,
+        }].to_json.gsub(' ', '')
       },
     }
   end
