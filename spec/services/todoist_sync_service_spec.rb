@@ -43,5 +43,17 @@ describe TodoistSyncService do
 
       expect(Item.count).to eq 3
     end
+
+    it "updates the status of existing items" do
+      item = create(:item,
+        content: "Email quads",
+        status: :complete,
+        todoist_id: "1000000003",
+      )
+
+      TodoistSyncService.sync()
+
+      expect(item.reload).to be_incomplete
+    end
   end
 end

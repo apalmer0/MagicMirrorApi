@@ -1,5 +1,5 @@
 class TodoistSyncService
-  TODOIST_URL = "https://todoist.com/api/v7/sync"
+  TODOIST_URL = "https://api.todoist.com/sync/v8/sync"
   RESOURCE_TYPE = "items"
 
   def self.sync
@@ -10,13 +10,17 @@ class TodoistSyncService
     todoist_response = fetch_todoist_items
     if todoist_response["items"].present?
       todoist_response["items"].each do |item|
-        Item.where(todoist_id: item["id"]).first_or_create(
+        new_item = Item.find_or_initialize_by(todoist_id: item["id"])
+
+        new_item.update(
           content: item["content"],
-          user_id: item["user_id"],
-          todoist_id: item["id"],
           due: save_in_eastern(item),
           status: item["checked"],
+          todoist_id: item["id"],
+          user_id: item["user_id"],
         )
+
+        new_item.save!
       end
     end
   end
@@ -37,5 +41,9 @@ class TodoistSyncService
 
   def save_in_eastern(item)
     item.dig("due", "date").to_datetime
+  end
+
+  def is_recurring?(item)
+    item.dig("due", "is_recurring")
   end
 end
